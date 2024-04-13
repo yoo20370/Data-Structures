@@ -104,6 +104,36 @@ int main()
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
     /* add your code here */
+    // 현재 노드
+    ListNode* ll1CurNode = ll1->head;
+    ListNode* ll2CurNode = ll2->head;
+    
+    ListNode* removeNode;
+    while(ll1CurNode != NULL && ll2CurNode != NULL){
+        
+        // 새로운 노드를 생성, ll2 제거 시 free 함수를 실행하므로 새로 생성해서 해야 함 
+        ListNode* newNode = (ListNode*)malloc(sizeof(ListNode));
+        
+        // 새로 들어온 노드가 다음 노드를 가리키게 함 
+        newNode->item = ll2CurNode->item;
+
+        // 새로 들어온 노드가 ll1 현재 노드가 가리키던 노드를 가리키게 함 
+        newNode->next = ll1CurNode->next;
+
+        // ll1 현재 노드가 새로운 노드를 가리키게 함 
+        ll1CurNode->next = newNode;
+
+        //
+        removeNode = ll2CurNode;
+        
+        // 다음 노드로 넘어가기 
+        ll1CurNode = ll1CurNode->next->next;
+        ll2CurNode = ll2CurNode->next;
+
+        // ll2 현재 노드를 복사해서 ll1 노드에 추가했으므로 제거 
+        ll2->head = ll2CurNode;
+        free(removeNode);
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

@@ -103,6 +103,37 @@ int main()
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
 	/* add your code here */
+    LinkedList* storeLL = resultFrontList;
+    ListNode* curNode = resultBackList->head;
+    ListNode* targetNode = ll->head;
+    ListNode* newNode;
+
+    int mid = ll->size / 2;
+    int target_idx = 0;
+    
+    while(targetNode != NULL){
+        // mid 다음인 경우에 연결 리스트 변경해줌,  
+        if(target_idx == mid + 1 && ll->size > 1){
+            storeLL = resultBackList;
+            curNode = storeLL->head;
+        }
+
+        newNode = (ListNode*) malloc(sizeof(ListNode));
+        newNode->item = targetNode->item;
+        newNode->next = NULL;
+        // 만약 저장할 연결 리스트가 빈 연결 리스트라면 
+        if(storeLL->head == NULL){
+            storeLL->head = newNode;
+            curNode = newNode;   
+        } else {
+            // 비어있지 않다면 
+            curNode->next = newNode;
+            curNode = curNode->next;
+        }
+        // 다음 타겟 노드로 이동 
+        target_idx++;
+        targetNode = targetNode->next;
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

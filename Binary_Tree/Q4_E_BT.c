@@ -104,6 +104,22 @@ int sumOfOddNodes(BTNode *node)
 
 {
     /* add your code here */
+    int leftSum = 0;
+    int rightSum = 0;
+    int sum = 0;
+    
+    if(node == NULL){
+        return 0;
+    }
+    leftSum = sumOfOddNodes(node->left);
+    rightSum = sumOfOddNodes(node->right);
+    
+    if(node->item % 2 != 0){
+        sum += node->item;
+    }
+
+    return  leftSum + rightSum + sum;
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////
